@@ -1,0 +1,44 @@
+:root {
+    --dark-gray: #121212;
+    --black: #000000;
+    --white-800: #EDEDED;
+    --white-900: #aaa9a9;
+    --white: #FFFFFF;
+    --medium-gray: #252525;
+    --yellow: #E2B616;
+    --light-blue: #5799EF;
+    --light-gray: #30353C;
+    --dark-gray-2: #1A1A1A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--black);
+    min-height: 100dvh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+/*APAGAR DEPOIS*/
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 80dvw;
+    margin: 0.5rem auto;
+
+}
+
+
+section h2 {
+    color: var(--yellow);
+    font-weight: bold;
+}

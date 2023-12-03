@@ -1,0 +1,45 @@
+.searchFieldContainer {
+    display: flex;
+    height: 2rem;
+    font-size: 1.4rem;
+    position: relative;
+    width: 50dvw;
+   
+}
+
+.buttonFilterContainerOptions {
+    flex: 1;
+    min-width: fit-content;
+}
+
+
+.searchInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+.searchInputContainer button {
+    border: none;
+    height: 100%;
+    padding: 2px 10px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--white-900);
+    border-radius: 0px 5px 5px 0px;
+}
+
+
+.searchInputContainer input {
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 8px;
+    flex: 1;
+
+    
+}

@@ -1,0 +1,36 @@
+.main_container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.8rem 0px;
+}
+
+.main_container h2 {
+    font-size: 2rem;
+}
+
+.contentList{
+    display: flex;
+    gap: 0.9rem;
+    color: var(--white-900);
+    overflow: scroll;
+    -ms-overflow-style: none;  /* Esconde a scrollbar do IE e Edge */
+    scrollbar-width: none;  /* Esconde a scrollbar do Firefox */
+}
+
+/* Esconde a scrollbar para o Chrome, Safari e Opera */
+.contentList::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+.contentList li {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background-color: var(--dark-gray-2);
+}
+
+
