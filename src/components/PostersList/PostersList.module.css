@@ -22,10 +22,7 @@
     padding: 0px 2rem;
 }
 
-/*antes tava o hover na primeira classe*/
-.contentListContainer .iconArrowVisible {
-    opacity: 1;
-}
+
 
 
 .contentListIconContainer {
@@ -50,6 +47,11 @@
 .contentListIconContainer:hover {
     color: var(--yellow);
     
+}
+
+/*antes tava o hover na primeira classe*/
+.contentListContainer:hover .contentListIconContainer{
+    opacity: 1;
 }
 
 .iconArrowLeft{
