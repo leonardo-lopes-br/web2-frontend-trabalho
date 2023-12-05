@@ -32,12 +32,8 @@ function App() {
                                          />
                         )
         }
-        {postersInfo.map((posterInfo) => <PostersList
-                                              key={posterInfo.sectionTitle}
-                                              info={posterInfo}
-                                         />
-                        )
-        }
+        
+        
       </main>
     </>
   )

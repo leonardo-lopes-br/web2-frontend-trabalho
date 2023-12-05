@@ -4,19 +4,76 @@
     flex-direction: column;
     gap: 1.5rem;
     margin: 1.8rem 0px;
+    
 }
 
 .main_container h2 {
     font-size: 2rem;
+    padding: 0px 2rem;
 }
+
+.iconArrowLeft,
+.iconArrowRight {
+    opacity: 0;
+}
+
+.contentListContainer {
+    position: relative;
+    padding: 0px 2rem;
+}
+
+/*antes tava o hover na primeira classe*/
+.contentListContainer .iconArrowVisible {
+    opacity: 1;
+}
+
+
+.contentListIconContainer {
+    position: absolute;
+    color: var(--white-900);
+    background-color: hsla(0, 0%, 0%, 0.274);
+    top: calc(50% - 35px - 1.3rem);
+    transition: color .3s;
+    border: 1px solid var(--white-900);
+    padding: 1.3rem;
+    border-radius: 0.4rem;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .4s;
+    
+}
+
+.contentListIconContainer:hover {
+    color: var(--yellow);
+    
+}
+
+.iconArrowLeft{
+    left: 0px;
+}
+.iconArrowLeft svg {
+    transform: rotate(180deg);
+}
+
+
+.iconArrowRight {
+    right: 0px;
+}
+
 
 .contentList{
     display: flex;
     gap: 0.9rem;
     color: var(--white-900);
-    overflow: scroll;
+    overflow: auto;
     -ms-overflow-style: none;  /* Esconde a scrollbar do IE e Edge */
     scrollbar-width: none;  /* Esconde a scrollbar do Firefox */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /*para IOs*/
 }
 
 /* Esconde a scrollbar para o Chrome, Safari e Opera */
