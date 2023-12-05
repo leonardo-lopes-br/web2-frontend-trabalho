@@ -12,10 +12,6 @@
     padding: 0px 2rem;
 }
 
-.iconArrowLeft,
-.iconArrowRight {
-    opacity: 0;
-}
 
 .contentListContainer {
     position: relative;
@@ -56,6 +52,7 @@
 
 .iconArrowLeft{
     left: 0px;
+    opacity: 0;
 }
 .iconArrowLeft svg {
     transform: rotate(180deg);
@@ -64,6 +61,7 @@
 
 .iconArrowRight {
     right: 0px;
+    opacity: 1;
 }
 
 
