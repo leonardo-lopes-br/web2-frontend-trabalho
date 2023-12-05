@@ -20,49 +20,11 @@
 
 
 
-
-.contentListIconContainer {
-    position: absolute;
-    color: var(--white-900);
-    background-color: hsla(0, 0%, 0%, 0.274);
-    top: calc(50% - 35px - 1.3rem);
-    transition: color .3s;
-    border: 1px solid var(--white-900);
-    padding: 1.3rem;
-    border-radius: 0.4rem;
-    width: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity .4s;
-    
-}
-
-.contentListIconContainer:hover {
-    color: var(--yellow);
-    
-}
-
 /*antes tava o hover na primeira classe*/
-.contentListContainer:hover .contentListIconContainer{
+.contentListContainer:hover button{
     opacity: 1;
 }
 
-.iconArrowLeft{
-    left: 0px;
-    opacity: 0;
-}
-.iconArrowLeft svg {
-    transform: rotate(180deg);
-}
-
-
-.iconArrowRight {
-    right: 0px;
-    opacity: 1;
-}
 
 
 .contentList{
