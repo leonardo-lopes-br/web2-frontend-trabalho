@@ -3,6 +3,9 @@
     padding: 5px;
     display: flex;
     flex-direction: column;
+    /*position e top são pra fixar o header no topo e evitar problemas de margin collapsing*/
+    position: sticky;
+    top: 0;
 }
 
 .navigationContainer {
