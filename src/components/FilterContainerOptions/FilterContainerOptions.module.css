@@ -1,14 +1,13 @@
 .container {
     background-color: var(--medium-gray);
-    z-index: 2;
     color: white;
     position: absolute;
     top: calc(2rem + 4px);
     width: 300px;
     padding: 5px 0px;
     border-radius: 5px;
-   
     transition: all .4s;
+    z-index: 2; /*maior que o do header*/
 }
 
 .container ul {

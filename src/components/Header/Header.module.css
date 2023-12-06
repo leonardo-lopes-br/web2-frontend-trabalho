@@ -6,6 +6,7 @@
     /*position e top são pra fixar o header no topo e evitar problemas de margin collapsing*/
     position: sticky;
     top: 0;
+    z-index: 1; /*pra comparar com o container de opções de filtro*/
 }
 
 .navigationContainer {
