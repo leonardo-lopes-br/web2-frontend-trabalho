@@ -14,15 +14,15 @@ function PostersList({ info }) {
             const optionspostersContent = info.reqOptions
             const postersContentPromise = await fetch(urlpostersContent, optionspostersContent)
             const postersContentObject = await postersContentPromise.json()
-            setpostersContent(postersContentObject)
-    }
+            setpostersContent(() => postersContentObject)
 
+    }
 
     useEffect(() => {
         searchContent()
     }, [])
 
-    
+
     const scrollNext = () => {
       if (ref_contentList.current) {
         const scrollWidth = ref_contentList.current.scrollWidth
@@ -59,13 +59,14 @@ function PostersList({ info }) {
                 <ArrowButton scroll={() => scrollNext()} direction="Right" />
               }
               <ul ref={ref_contentList} className={styles.contentList}>
-                {postersContent.results && postersContent.results.map((content) => {       
+                {postersContent.results && postersContent.results.map((content, index) => {      
                   return <li key={content.id}>
                             <Poster content={content}/>
                         </li>
                 })}
               </ul>
           </div>
+        
         </section>
     )
 }
