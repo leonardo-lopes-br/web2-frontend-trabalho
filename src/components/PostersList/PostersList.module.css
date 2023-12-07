@@ -4,24 +4,33 @@
     flex-direction: column;
     gap: 1.5rem;
     margin: 1.8rem 0px;
-    
+    align-items: center;
+    justify-content: center;
 }
 
-.main_container h2 {
+
+.secondary_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.secondary_container h2 {
     font-size: 2rem;
-    padding: 0px 2rem;
+    padding: 0px 3rem; /*com base no padding do contentListContainer e do contentList*/
 }
 
 
 .contentListContainer {
     position: relative;
     padding: 0px 2rem;
+    align-self: center;
 }
 
 
 
-/*antes tava o hover na primeira classe*/
-.contentListContainer:hover button{
+/*não muito seguro pois estou assumindo o conteudo do componente*/
+.contentListContainer:hover button {
     opacity: 1;
 }
 
@@ -29,13 +38,14 @@
 
 .contentList{
     display: flex;
-    gap: 0.9rem;
+    gap: 1rem;
     color: var(--white-900);
     overflow: auto;
     -ms-overflow-style: none;  /* Esconde a scrollbar do IE e Edge */
     scrollbar-width: none;  /* Esconde a scrollbar do Firefox */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /*para IOs*/
+    padding: 1rem;
 }
 
 /* Esconde a scrollbar para o Chrome, Safari e Opera */

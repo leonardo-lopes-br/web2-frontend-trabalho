@@ -11,6 +11,7 @@ function Poster({ content }) {
                 src={`http://image.tmdb.org/t/p/w500/${content.poster_path}`}
                 loading="lazy"
                 width={'100%'}
+                height={'370px'}
                 alt={`Poster de ${content.title}`}
             />
             </a>

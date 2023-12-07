@@ -23,7 +23,7 @@
 }
 
 .buttonArrowLeft{
-    left: 0px;
+    left: 16px; /*Com base na quantidade de gaps que aparecem por scroll*/
     opacity: 0;
 }
 .buttonArrowLeft svg {
@@ -32,6 +32,6 @@
 
 
 .buttonArrowRight {
-    right: 0px;
+    right: 16px; /*Com base na quantidade de gaps que aparecem por scroll*/
     opacity: 1;
 }
