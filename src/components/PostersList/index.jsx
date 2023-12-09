@@ -1,7 +1,8 @@
 import ArrowButton from "../ArrowButton"
 import Poster from "../Poster"
 import styles from "./PostersList.module.css"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useContext } from "react"
+import { useFavorites } from "../../FavoritesContext"
 
 function PostersList({ info }) {
 
@@ -9,8 +10,11 @@ function PostersList({ info }) {
     const [containerScrollLeft, setContainerScrollLeft] = useState(0)
     const [screenWidth, setScreenWidth] = useState((window.innerWidth > 0) ? window.innerWidth : screen.width)
     const [containerWidth, setContainerWidth] = useState(0)
+    
+
 
     const ref_contentList = useRef(null)
+    const  { favorites } = useFavorites()
     
 
     async function searchContent() {
@@ -24,15 +28,15 @@ function PostersList({ info }) {
     /*Atualizar o tamanho atual da tela*/
     useEffect(() => {
       const handleWindowResize = () => {
-        setScreenWidth((window.innerWidth > 0) ? window.innerWidth : screen.width);
-      };
+        setScreenWidth((window.innerWidth > 0) ? window.innerWidth : screen.width)
+      }
   
-      window.addEventListener('resize', handleWindowResize);
+      window.addEventListener('resize', handleWindowResize)
   
       return () => {
-        window.removeEventListener('resize', handleWindowResize);
-      };
-    });
+        window.removeEventListener('resize', handleWindowResize)
+      }
+    })
 
     /*Obter os dados da API*/
     useEffect(() => {
@@ -95,9 +99,13 @@ function PostersList({ info }) {
                   <ArrowButton scroll={() => scrollNext()} direction="Right" />
                 }
                 <ul ref={ref_contentList} className={styles.contentList}>
-                  {postersContent.results && postersContent.results.map(content => {      
+                  {postersContent.results && postersContent.results.map(content => {
+                    let fav = false
+                    if (favorites) {
+                      fav = favorites.some(favorite => JSON.stringify(favorite) === JSON.stringify(content))
+                    }
                     return <li key={content.id}>
-                              <Poster content={content}/>
+                              <Poster content={content} fav={fav}/>
                           </li>
                   })}
                 </ul>

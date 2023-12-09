@@ -3,7 +3,7 @@
     position: relative;
     flex-direction: column;
     gap: 1.5rem;
-    margin: 1.8rem 0px;
+    margin-top: 1.8rem;
     align-items: center;
     justify-content: center;
 }
@@ -17,7 +17,9 @@
 
 .secondary_container h2 {
     font-size: 2rem;
-    padding: 0px 3rem; /*com base no padding do contentListContainer e do contentList*/
+    padding-left: 5px;
+    border-left: 5px solid var(--yellow);
+    color: var(--white);
 }
 
 
