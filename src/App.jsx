@@ -1,15 +1,13 @@
 import Header from "./components/Header"
 
-import { BrowserRouter as Router, Routes, Route, useFormAction } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 // import MovieDetails from './pages/MovieDetails';
 import Favorites from './pages/Favorites';
 import { FavoritesProvider } from "./FavoritesContext";
-import { useFavorites } from "./FavoritesContext";
-import { useEffect } from "react";
 
 function App() {
-
+  
 
   return (
     <>
