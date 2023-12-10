@@ -1,8 +1,9 @@
 import ArrowButton from "../ArrowButton"
 import Poster from "../Poster"
 import styles from "./PostersList.module.css"
-import { useEffect, useState, useRef, useContext } from "react"
+import { useEffect, useState, useRef} from "react"
 import { useFavorites } from "../../FavoritesContext"
+import MyLoader from "../MyLoader"
 
 function PostersList({ info }) {
 
@@ -12,9 +13,8 @@ function PostersList({ info }) {
     const [containerWidth, setContainerWidth] = useState(0)
     
 
-
     const ref_contentList = useRef(null)
-    const  { favorites } = useFavorites()
+    const { favorites } = useFavorites()
     
 
     async function searchContent() {
@@ -101,18 +101,16 @@ function PostersList({ info }) {
                 <ul ref={ref_contentList} className={styles.contentList}>
                   {postersContent.results && postersContent.results.map(content => {
                     let fav = false
-                    if (favorites) {
-                      fav = favorites.some(favorite => JSON.stringify(favorite) === JSON.stringify(content))
-                    }
+                    if (favorites)
+                      fav = favorites.some(item => item.id === content.id)
                     return <li key={content.id}>
                               <Poster content={content} fav={fav}/>
                           </li>
                   })}
+                  {!postersContent.results && <MyLoader />}
                 </ul>
             </div>
-          </div>
-          
-        
+          </div>  
         </section>
     )
 }

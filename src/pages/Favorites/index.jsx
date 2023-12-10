@@ -2,6 +2,7 @@ import styles from "./Favorites.module.css"
 import { useFavorites } from "../../FavoritesContext"
 import Poster from "../../components/Poster"
 
+
 function Favorites() {
 
     const { favorites } = useFavorites()

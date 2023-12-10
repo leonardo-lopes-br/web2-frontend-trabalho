@@ -11,13 +11,12 @@ export const FavoritesProvider = ({ children }) => {
         // primeiro a ser salvo
         if (!localStorage.getItem('favorites')) {
             localStorage.setItem('favorites', JSON.stringify([content]))
-            setFavorites([content])
             return [content]
         }
         else {
             // Já tem, vamos remover
             if (prevFavorites.includes(content)) {
-                const newArray = prevFavorites.filter(favorite => JSON.stringify(favorite) !== JSON.stringify(content))
+                const newArray = prevFavorites.filter(favorite => favorite.id !== content.id)
                 localStorage.setItem('favorites', JSON.stringify(newArray))
                 return newArray
             }
