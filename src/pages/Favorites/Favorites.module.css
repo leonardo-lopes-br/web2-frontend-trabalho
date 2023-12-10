@@ -18,6 +18,8 @@
     color: var(--white-900);
     padding: 1rem;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .contentList li {
