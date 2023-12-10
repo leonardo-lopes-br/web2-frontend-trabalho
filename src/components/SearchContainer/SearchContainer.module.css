@@ -4,6 +4,8 @@
     font-size: 1.4rem;
     position: relative;
     width: 50dvw;
+    min-width: fit-content;
+   
    
 }
 
@@ -28,7 +30,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     color: var(--white-900);
     border-radius: 0px 5px 5px 0px;
 }
@@ -41,5 +42,32 @@
     padding: 8px;
     flex: 1;
 
+    
+}
+
+
+@media screen and (max-width: 530px) {
+
+    .buttonFilterContainerOptions, .searchInputContainer input[type=text] {
+        display: none;
+    }
+    
+    .searchInputContainer button {
+        background-color: transparent;
+        padding: 0;
+        border-radius: 50%;
+    }
+
+    .searchInputContainer button:hover {
+        background-color: var(--light-gray);
+    }
+
+    .searchInputContainer button svg {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 800px) {
     
 }

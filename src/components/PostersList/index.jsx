@@ -29,6 +29,7 @@ function PostersList({ info }) {
     useEffect(() => {
       const handleWindowResize = () => {
         setScreenWidth((window.innerWidth > 0) ? window.innerWidth : screen.width)
+        
       }
   
       window.addEventListener('resize', handleWindowResize)

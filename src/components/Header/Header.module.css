@@ -1,8 +1,7 @@
 .header {
     background-color: var(--dark-gray);
     padding: 5px;
-    display: flex;
-    flex-direction: column;
+    
     /*position e top são pra fixar o header no topo e evitar problemas de margin collapsing*/
     position: sticky;
     top: 0;
@@ -13,6 +12,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    
 }
 
 .navigationContainer h1 {
@@ -21,18 +21,19 @@
     padding: 3px 6px;
     color: var(--black);
     border-radius: 3px;
+    font-size: 1.5rem;
 }
 
-.navigationContainer a {
+.navLink {
     text-decoration: none;
     color: var(--white);
     font-weight: bold;
+    width: fit-content;
 }
 
 
 .listaFavoritosContainer {
     display: flex;
-    color: var(--white);
     align-items: center;
     gap: 5px;
     font-size: 0.7rem;
@@ -44,3 +45,73 @@
 .listaFavoritosContainer:hover {
     background-color: var(--medium-gray);
 }
+
+.searchMobileOverlay {
+    display: none;
+}
+
+
+@media screen and (max-width: 530px) {
+    .listaFavoritosContainer h2 {
+        display: none;
+    }
+
+    .listaFavoritosContainer svg {
+        width: 35px;
+        height: 35px;
+    }
+    
+
+    .searchMobileOverlay {
+        position: absolute;
+        top: -200px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--medium-gray);
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: displayMobileSearch 0.24s ease-in-out forwards;
+        padding: 10px;
+    }
+
+    .searchMobileOverlay button {
+        border: none;
+        height: 100%;
+        padding: 5px;
+        background-color: var(--medium-gray);
+    }
+
+    .searchMobileOverlay button svg {
+        color: var(--white-900);
+    }
+    
+    
+    .searchMobileOverlay input[type=text] {
+        height: 100%;
+        border: none;
+        outline: none;
+        padding: 8px;
+        flex: 1;
+        background-color: var(--medium-gray);
+        color: var(--white);
+    }
+
+    @keyframes displayMobileSearch {
+        100% {
+            top: 0;
+        }
+    }
+       
+}
+
+
+@media screen and (max-width: 800px) {
+    .listaFavoritosContainer h2 {
+        display: none;
+    }
+}
+
+    

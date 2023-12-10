@@ -1,10 +1,10 @@
-import Header from "./components/Header"
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-// import MovieDetails from './pages/MovieDetails';
-import Favorites from './pages/Favorites';
 import { FavoritesProvider } from "./FavoritesContext";
+
+import Header from "./components/Header"
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
+// import MovieDetails from './pages/MovieDetails';
 
 function App() {
   
@@ -20,7 +20,6 @@ function App() {
             {/*<Route path="/:movie_id" element={<MovieDetails />} /> */}
           </Routes>
         </FavoritesProvider>
-        
       </Router>
     </>
   )

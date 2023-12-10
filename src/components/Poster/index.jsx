@@ -11,7 +11,7 @@ function Poster({ content, fav = false }) {
             <a href="#">
             <img
                 className={styles.contentImage}
-                src={`http://image.tmdb.org/t/p/w500/${content.poster_path}`}
+                src={`http://image.tmdb.org/t/p/w342/${content.poster_path}`}
                 loading="lazy"
                 width={'100%'}
                 height={'370px'}
