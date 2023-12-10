@@ -6,12 +6,12 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')));
 
   function toggleFavorites(content) {
-
+    
     setFavorites(prevFavorites => {
         // primeiro a ser salvo
         if (!localStorage.getItem('favorites')) {
             localStorage.setItem('favorites', JSON.stringify([content]))
-            setFavorites(prev => [...prev, content])
+            setFavorites([content])
             return [content]
         }
         else {
