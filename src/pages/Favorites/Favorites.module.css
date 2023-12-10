@@ -18,8 +18,7 @@
     color: var(--white-900);
     padding: 1rem;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+
 }
 
 .contentList li {
@@ -28,6 +27,7 @@
     flex-direction: column;
     gap: 0.3rem;
     background-color: var(--dark-gray-2);
+    
 }
 
 
@@ -67,4 +67,13 @@
 
 .emptyListContainer svg {
     color: var(--white-900);
+}
+
+
+@media screen and (max-width: 608px) {
+    .contentList  {
+        align-items: center;
+        justify-content: center;
+    }
+    
 }
