@@ -1,0 +1,37 @@
+.main_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--white-900);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 30dvw;
+}
+
+.main_container img {
+    border-radius: 50%;
+}
+
+.socialMediaContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    gap: 1rem;
+}
+
+.socialMediaContainer svg {
+    color: var(--white);
+}
+
+.socialMediaContainer svg:hover {
+    color: var(--white-900);
+}
+
+
+@media screen and (max-width: 530px) {
+    .main_container {
+        width: 100%;
+    }
+}

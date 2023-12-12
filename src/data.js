@@ -56,3 +56,30 @@ export const postersInfo = [
     },
 
   ]
+
+
+  export const developers = [
+    {
+      name: 'Karen Ketlyn Ferreira Barcelos',
+      social_media: {
+        github_nick: '42kkkkkaren',
+        instagram_nick: 'kkkkkaren.exe',
+      },
+    },
+    
+    {
+      name: 'Leonardo da Silva Lopes',
+      social_media: {
+        github_nick: 'leonardo-lopes-br',
+        instagram_nick: 'quefofomano',
+      },
+    },
+
+    {
+      name: 'Vitor Kasai Tanoue',
+      social_media: {
+        github_nick: 'vitorkasai',
+        instagram_nick: 'vitorkasai',
+      },
+    },
+  ]

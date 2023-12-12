@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { FavoritesProvider } from "./FavoritesContext";
 
+import Footer from './components/Footer';
 import Header from "./components/Header"
+
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 // import MovieDetails from './pages/MovieDetails';
@@ -20,6 +22,7 @@ function App() {
             {/*<Route path="/:movie_id" element={<MovieDetails />} /> */}
           </Routes>
         </FavoritesProvider>
+        <Footer />
       </Router>
     </>
   )
