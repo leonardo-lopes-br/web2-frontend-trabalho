@@ -7,14 +7,24 @@ import MyLoader from "../MyLoader"
 
 function PostersList({ info }) {
 
+    // Armazenar os dados
     const [postersContent, setpostersContent] = useState({})
+
+    // Controlar o scroll da lista
     const [containerScrollLeft, setContainerScrollLeft] = useState(0)
+
+    // Obter a largura atual da tela inteira
     const [screenWidth, setScreenWidth] = useState((window.innerWidth > 0) ? window.innerWidth : screen.width)
+
+    // Configurar a largura da lista dinamicamente
     const [containerWidth, setContainerWidth] = useState(0)
-    
+
+    const [refLoaded, setRefLoaded] = useState(false)
 
     const ref_contentList = useRef(null)
     const { favorites } = useFavorites()
+  
+  
     
 
     async function searchContent() {
@@ -25,8 +35,14 @@ function PostersList({ info }) {
             setpostersContent(() => postersContentObject)
     }
 
-    /*Atualizar o tamanho atual da tela*/
+    
+    
     useEffect(() => {
+      /*Obter os dados da API*/
+      searchContent()
+
+      /*Atualizar o tamanho atual da tela*/
+
       const handleWindowResize = () => {
         setScreenWidth((window.innerWidth > 0) ? window.innerWidth : screen.width)
         
@@ -37,12 +53,9 @@ function PostersList({ info }) {
       return () => {
         window.removeEventListener('resize', handleWindowResize)
       }
-    })
-
-    /*Obter os dados da API*/
-    useEffect(() => {
-        searchContent()
     }, [])
+
+    
 
     /*Configurar o tamanho do container de posters*/
     useEffect(() => {
@@ -91,15 +104,18 @@ function PostersList({ info }) {
           <div className={styles.secondary_container}>
             <h2>{info.sectionTitle}</h2>
             <div className={styles.contentListContainer} style={{width: `${containerWidth}px`}}>
-                {/*Só exibe a setinha da esquerda se já foi feito algum scroll para a direita*/}
-                {containerScrollLeft !== 0 &&
-                  <ArrowButton scroll={() => scrollPrev()} direction="Left"/>
-                }
-                {/*Só exibe a setinha da direita se não chegou ao máximo scroll possível*/}
-                { ref_contentList.current && containerScrollLeft !== (ref_contentList.current.scrollWidth - ref_contentList.current.clientWidth) &&
-                  <ArrowButton scroll={() => scrollNext()} direction="Right" />
-                }
-                <ul ref={ref_contentList} className={styles.contentList}>
+                <ArrowButton
+                  scroll={() => scrollPrev()}
+                  direction="Left"
+                  visible={containerScrollLeft !== 0}
+                />
+                <ArrowButton
+                  scroll={() => scrollNext()}
+                  direction="Right"
+                  visible={refLoaded && containerScrollLeft !== (ref_contentList.current.scrollWidth - ref_contentList.current.clientWidth)}
+                />
+                
+                <ul ref={ref_contentList} className={styles.contentList} onLoad={() => setRefLoaded(true)}>
                   {postersContent.results && postersContent.results.map(content => {
                     let fav = false
                     if (favorites)
