@@ -21,6 +21,9 @@ body {
     background-color: var(--black);
     min-height: 100dvh;
     font-family: Arial, Helvetica, sans-serif;
+    /*Abaixo é para evitar scroll horizontal na página*/
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 button, a {

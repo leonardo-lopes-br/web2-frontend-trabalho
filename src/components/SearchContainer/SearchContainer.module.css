@@ -46,7 +46,7 @@
 }
 
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 620px) {
 
     .buttonFilterContainerOptions, .searchInputContainer input[type=text] {
         display: none;
