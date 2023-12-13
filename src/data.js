@@ -1,7 +1,7 @@
 export const postersInfo = [
     {
       sectionTitle: "Em destaque hoje",
-      baseUrl: "https://api.themoviedb.org/3/trending/movie/day",
+      baseUrl: "https://api.themoviedb.org/3/trending/movie/day?language=pt-BR",
       paginable: true,
       reqOptions: { 
         method: 'GET',
@@ -15,7 +15,7 @@ export const postersInfo = [
 
     {
       sectionTitle: "Populares",
-      baseUrl: "https://api.themoviedb.org/3/movie/popular",
+      baseUrl: "https://api.themoviedb.org/3/movie/popular?language=pt-BR",
       paginable: true,
       reqOptions: { 
         method: 'GET',
@@ -29,7 +29,7 @@ export const postersInfo = [
 
     {
       sectionTitle: "Mais bem avaliados",
-      baseUrl: "https://api.themoviedb.org/3/movie/top_rated",
+      baseUrl: "https://api.themoviedb.org/3/movie/top_rated?language=pt-BR",
       paginable: true,
       reqOptions: { 
         method: 'GET',
@@ -43,7 +43,7 @@ export const postersInfo = [
 
     {
       sectionTitle: "Recentes",
-      baseUrl: "https://api.themoviedb.org/3/movie/upcoming",
+      baseUrl: "https://api.themoviedb.org/3/movie/upcoming?language=pt-BR",
       paginable: true,
       reqOptions: { 
         method: 'GET',
