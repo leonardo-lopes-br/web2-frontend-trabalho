@@ -11,7 +11,7 @@ function Favorites() {
     return (
         <main className={styles.main_container}>
             <h1>Favoritos</h1>
-            {favorites && favorites.length > 0 &&
+            {(!favorites || favorites.length > 0) &&
                 <ul className={styles.contentList}>
                     {favorites.map(favorito => <li key={favorito.id}> <Poster content={favorito} fav /> </li>)}
                 </ul>
