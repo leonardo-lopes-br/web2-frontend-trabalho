@@ -101,7 +101,7 @@ function ContentDetails() {
                 <main className={styles.main_container} >
                     {/*Container para o background da imagem */}
                     <div className={styles.backgroundImageContainer}>
-                        <div className={styles.imgContainer} style={{backgroundImage: `url('http://image.tmdb.org/t/p/original${contentDetails.poster_path}')`}}></div>
+                        <div className={styles.imgContainer} style={{backgroundImage: `url('https://image.tmdb.org/t/p/original${contentDetails.poster_path}')`}}></div>
                         <div className={styles.blur}></div>
                     </div>
                     <h1>{contentDetails.title}</h1>
@@ -121,7 +121,7 @@ function ContentDetails() {
                             <div className={styles.ratingContainer}>
                                 <span>Avaliação</span>
                                 <span className={styles.numberRatingContainer}>
-                                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path></svg>
+                                    <svg width="24" height="24" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path></svg>
                                     <div className={styles.numbers}>
                                         <span>
                                             {`${contentDetails.vote_average.toLocaleString("pt-BR", {maximumFractionDigits: 1, minimumFractionDigits: 1})}`}
@@ -135,13 +135,13 @@ function ContentDetails() {
                             </div>
                             <div className={styles.favoriteContainer}>
                                 <span>Favorito</span>
-                                <svg className={`${isFavorite ? styles.yellowStar : ''}`} onClick={handleFavoriteButtonClick} role="button" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path></svg>
+                                <svg className={`${isFavorite ? styles.yellowStar : ''}`} onClick={handleFavoriteButtonClick} role="button" width="24" height="24" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path></svg>
                             </div>
                         </div>
                     </div>
                     <div className={styles.container}>
                         <div className={`${styles.imageVideoContainer} ${trailerLink ? '' : styles.imageWithoutVideo}`}>
-                            <img src={`http://image.tmdb.org/t/p/w500${contentDetails.poster_path}`} alt={`Poster de ${contentDetails.title}`} />
+                            <img src={`https://image.tmdb.org/t/p/w500${contentDetails.poster_path}`} alt={`Poster de ${contentDetails.title}`} />
                             {trailerLink && (
                                 <div className={styles.iframeContainer}>
                                     <iframe
