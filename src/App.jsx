@@ -4,6 +4,8 @@ import { FavoritesProvider } from "./FavoritesContext";
 import Footer from './components/Footer';
 import Header from "./components/Header"
 
+import ScrollToTop from './components/ScrollToTop';
+
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import ContentDetails from './pages/ContentDetails';
@@ -24,6 +26,8 @@ function App() {
           </Routes>
         </FavoritesProvider>
         <Footer />
+
+        <ScrollToTop /> {/*Só pra voltar para o começo da página quando eu trocar de rota*/}
       </Router>
     </>
   )
