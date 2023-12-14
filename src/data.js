@@ -83,3 +83,16 @@ export const postersInfo = [
       },
     },
   ]
+
+
+  export const uniqueContentQuery = {
+    baseUrl: 'https://api.themoviedb.org/3/movie/<content_id>?append_to_response=videos&language=pt-BR',
+    reqOptions: {
+      method: 'GET',
+      headers:
+        {
+            accept: 'application/json',
+            Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`
+        },
+    },
+  }
