@@ -24,7 +24,7 @@ function ContentDetails() {
 
 
     useEffect(() => {
-        if (contentDetails.id) {
+        if (contentDetails.id && favorites) {
             setIsFavorite(favorites.find(fav => fav.id === contentDetails.id))
         }
             
@@ -41,7 +41,7 @@ function ContentDetails() {
             }
  
         }
-    }, [contentDetails])
+    }, [contentDetails, favorites])
 
     async function fetchContentDetails() {
         const contentId = Number(contentObject.movie_id)
