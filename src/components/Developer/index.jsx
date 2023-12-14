@@ -5,7 +5,7 @@ function Developer({ dev }) {
 
     return (
         <div className={styles.main_container}>
-            <img src={`https://avatars.githubusercontent.com/${dev.social_media.github_nick}`} width={'80px'} alt="Logo do Github" />
+            <img src={`https://avatars.githubusercontent.com/${dev.social_media.github_nick}`} width={'80px'} alt={`Foto do(a) desenvolvedor(a) ${dev.name}`} />
             <span>{dev.name}</span>
             <div className={styles.socialMediaContainer}>
                 <a href={`https://github.com/${dev.social_media.github_nick}`}>
