@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import ContentDetails from './pages/ContentDetails';
+import Erro404 from './pages/Erro404';
 
 function App() {
   
@@ -22,7 +23,7 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/favoritos" element={<Favorites />} />
             <Route path="/:movie_id" element={<ContentDetails />} />
-            <Route path="/erro404" element={<h1 style={{color: 'white'}}>teste de erro</h1>}/>
+            <Route path="/erro404" element={<Erro404 />}/>
           </Routes>
         </FavoritesProvider>
         <Footer />

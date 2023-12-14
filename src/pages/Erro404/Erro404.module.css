@@ -1,0 +1,17 @@
+.main_container {
+    width: 100%;
+    min-height: 45dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-900);
+}
+
+.main_container h1 {
+    font-weight: normal;
+    font-size: 1.5rem;
+    border-left: 2px solid var(--yellow);
+    border-right: 2px solid var(--yellow);
+    padding: 0px 10px;
+    margin: 0px 10px;
+}
