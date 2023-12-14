@@ -11,13 +11,13 @@ function Favorites() {
     return (
         <main className={styles.main_container}>
             <h1>Favoritos</h1>
-            {(!favorites || favorites.length > 0) &&
+            {favorites && favorites.length > 0 &&
                 <ul className={styles.contentList}>
                     {favorites.map(favorito => <li key={favorito.id}> <Poster content={favorito} fav /> </li>)}
                 </ul>
             }
             
-            {favorites && favorites.length === 0 &&
+            {(!favorites || favorites.length === 0) &&
                 <div className={styles.emptyListContainer}>
                     <svg width="100px" height="100px" viewBox="0 0 32 32" fill="currentColor" role="presentation" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="currentColor" fillRule="evenodd" sketch:type="MSPage">
