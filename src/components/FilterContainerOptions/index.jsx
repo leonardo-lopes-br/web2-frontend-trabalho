@@ -7,8 +7,8 @@ function FilterContainerOptions({filterItems, selected, filterOptionClicked}) {
             <ul>
                 {filterItems.map(
                     filterItem => <li
-                                    onClick={() => filterOptionClicked(filterItem.id)}
-                                    className={`${styles.item} ${selected === filterItem.id ? styles.item_selected : ""}`}
+                                    onClick={() => filterOptionClicked(filterItem)}
+                                    className={`${styles.item} ${selected.id === filterItem.id ? styles.item_selected : ""}`}
                                     key={filterItem.id}
                                    >
                                         <span>{filterItem.icon}</span>
