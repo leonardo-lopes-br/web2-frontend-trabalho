@@ -46,7 +46,7 @@ function ContentDetails() {
     async function fetchContentDetails() {
         const contentId = Number(contentObject.movie_id)
         if (isNaN(contentId)) {
-            navigate('/erro404')
+            navigate('/')
         }
         else {
             const queryUrl = uniqueContentQuery.baseUrl.replace('<content_id>', contentId)
@@ -55,8 +55,7 @@ function ContentDetails() {
                 const my_content = await fetch(queryUrl, queryOptions);
         
                 if (!my_content.ok) {
-                    console.error(`Erro: ${my_content.status} - ${my_content.statusText}`);
-                    navigate('/erro404');
+                    navigate('/');
                     return;
                 }
         
@@ -72,9 +71,8 @@ function ContentDetails() {
                 setContentLoaded(true)
 
             }
-            catch (error) {
-                console.error('Erro buscando os detalhes do conteudo:', error);
-                navigate('/erro404');
+            catch  {
+                navigate('/');
             }
         }  
     }

@@ -28,15 +28,15 @@ export const FavoritesProvider = ({ children }) => {
             }
         }     
     })
-}
+  }
 
   return (
     <FavoritesContext.Provider value={{ favorites, toggleFavorites }}>
       {children}
     </FavoritesContext.Provider>
-  );
-};
+  )
+}
 
 export const useFavorites = () => {
-  return useContext(FavoritesContext);
-};
+  return useContext(FavoritesContext)
+}

@@ -70,7 +70,22 @@ function Header() {
 
         // pesquisa no desktop com filtro diferente de 'Tudo'
         else {
-
+            // títulos -> somente filmes
+            if (filter === filterItems[1].title) {
+                const movieFilter = filteredContent.find(item => item.content_type === 'movie')
+                const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', inputs.desktopInput), movieFilter.reqOptions)
+                const movieQueryJSON = await movieQuery.json()
+                console.log("Query de filmes no desktop: ")
+                console.log(movieQueryJSON)
+            }
+            // Episódios de séries
+            else if (filter === filterItems[2].title) {
+                const tvFilter = filteredContent.find(item => item.content_type === 'tv')
+                const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', inputs.desktopInput), tvFilter.reqOptions)
+                const tvQueryJSON = await tvQuery.json()
+                console.log("Query de tv series no desktop: ")
+                console.log(tvQueryJSON)
+            }
         }
 
     }
@@ -85,7 +100,9 @@ function Header() {
             // se já estava exibindo o input, usuario fez uma busca
             if (showSearchMobileOverlay) {
                 evalQuery()
-                setShowSearchMobileOverlay(false)
+                // apenas retiro o input overlay do mobile se o usuario pesquisou alguma coisa
+                if (ref_mobileInput.current.value.trim() !== '')
+                    setShowSearchMobileOverlay(false)
                 setInputs(prev => { return {...prev, mobileInput: ''}})
             }
             // se não estava aparecendo, exibir o input mobile
@@ -135,10 +152,24 @@ function Header() {
                
                 </Link>
                 {showSearchMobileOverlay && (
+                    <>
                     <form className={styles.searchMobileOverlay}>
                         <input ref={ref_mobileInput} onChange={onInputChange} value={inputs.mobileInput} id='mobileInput' type="text" placeholder='Pesquisar na CineVortex' />
-                        <button type='submit' onClick={e => searchQuery(e)}><svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></button>
+                        <button type='submit' onClick={e => searchQuery(e)}>
+                            <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                        </button>
+                        <button type='button' onClick={() => setShowSearchMobileOverlay(false)}>
+                            <svg
+                                viewBox="0 0 512 512"
+                                fill="currentColor"
+                                height="1.8rem"
+                                width="1.8rem"
+                            >
+                                <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm86.63 272L320 342.63l-64-64-64 64L169.37 320l64-64-64-64L192 169.37l64 64 64-64L342.63 192l-64 64z" />
+                            </svg>
+                        </button>
                     </form>
+                    </>
                 )}                   
             </nav>
             
