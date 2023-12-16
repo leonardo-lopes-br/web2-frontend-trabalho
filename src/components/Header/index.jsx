@@ -22,6 +22,7 @@ function Header() {
             if (showSearchMobileOverlay) {
                 evalQuery()
                 setShowSearchMobileOverlay(false)
+                setInputs(prev => { return {...prev, mobileInput: ''}})
             }
             // se não estava aparecendo, exibir o input mobile
             else {
@@ -31,6 +32,7 @@ function Header() {
         // se a tela for grande, ao clicar no botão já executa a busca do input
         else {
             evalQuery('filtro')
+            setInputs(prev => { return {...prev, desktopInput: ''}})
         }
     }
 
