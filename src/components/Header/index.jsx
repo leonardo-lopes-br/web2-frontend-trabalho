@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import SearchContainer from '../SearchContainer';
-import styles from './Header.module.css'
 import { Link } from "react-router-dom";
+
+import SearchContainer from '../SearchContainer';
+
+import { filteredContent } from '../../data';
+
+import styles from './Header.module.css'
 
 function Header() {
 
@@ -30,13 +34,36 @@ function Header() {
         desktopInput: ''
     })
 
-    function evalQuery (filter='') {
+    async function evalQuery (filter='') {
+        // Usuário tentou buscar por nada
+        if ((filter === '' && inputs.mobileInput.trim() === '') || (filter !== '' && inputs.desktopInput.trim() === '')) {
+            console.log('pesquisou por nada')
+            return
+        }
+
+        // pesquisa por tudo
         if (filter === '' || filter === filterItems[0].title) {
-            console.log('filter: >tudo<')
+            const movieFilter = filteredContent.find(item => item.content_type === 'movie')
+            const tvFilter = filteredContent.find(item => item.content_type === 'tv')
+
+            const my_input = filter === '' ? inputs.mobileInput : inputs.desktopInput
+
+            const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', my_input), movieFilter.reqOptions)
+            const movieQueryJSON = await movieQuery.json()
+            console.log("Query de filmes no mobile: ")
+            console.log(movieQueryJSON)
+
+            const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', my_input), tvFilter.reqOptions)
+            const tvQueryJSON = await tvQuery.json()
+            console.log("Query de tv series no mobile: ")
+            console.log(tvQueryJSON)
         }
+
+        // pesquisa no desktop com filtro diferente de 'Tudo'
         else {
-            console.log('filter: ' + filter)
+
         }
+
     }
 
     function searchQuery() {

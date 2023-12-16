@@ -1,4 +1,4 @@
-export const postersInfo = [
+export const postersMovieListInfo = [
     {
       sectionTitle: "Em destaque hoje",
       baseUrl: "https://api.themoviedb.org/3/trending/movie/day?language=pt-BR",
@@ -96,3 +96,32 @@ export const postersInfo = [
         },
     },
   }
+
+export const filteredContent = [
+    {
+      content_type: 'movie',
+      baseUrl: 'https://api.themoviedb.org/3/search/movie?query=<query>&language=pt-BR',
+      reqOptions: {
+        method: 'GET',
+        headers:
+          {
+              accept: 'application/json',
+              Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`
+          },
+      },
+    },
+
+    {
+      content_type: 'tv',
+      baseUrl: 'https://api.themoviedb.org/3/search/tv?query=<query>&language=pt-BR',
+      reqOptions: {
+        method: 'GET',
+        headers:
+          {
+              accept: 'application/json',
+              Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`
+          },
+      },
+    },
+  ]
+    
