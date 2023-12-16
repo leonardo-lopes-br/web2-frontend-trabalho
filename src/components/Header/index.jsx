@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 
 import SearchContainer from '../SearchContainer';
@@ -29,10 +29,19 @@ function Header() {
 
     const [currentFilter, setCurrentFilter] = useState(filterItems[0])
     const [showSearchMobileOverlay, setShowSearchMobileOverlay] = useState(false);
+    const ref_mobileInput = useRef()
     const [inputs, setInputs] = useState({
         mobileInput: '',
         desktopInput: ''
     })
+
+
+    // Ao exibir o input de pesquisa no mobile, focar no campo
+    // ref sempre vai estar definido pois o estado já indica que ele está na DOM real
+    useEffect(() => {
+        if (showSearchMobileOverlay)
+            ref_mobileInput.current.focus()
+    }, [showSearchMobileOverlay])
 
     async function evalQuery (filter='') {
         // Usuário tentou buscar por nada
@@ -66,7 +75,7 @@ function Header() {
 
     }
 
-    function searchQuery() {
+    function searchQuery(event) {
         // se a tela for pequena
         if (window.innerWidth <= 620) {
             // se já estava exibindo o input, usuario fez uma busca
@@ -78,6 +87,7 @@ function Header() {
             // se não estava aparecendo, exibir o input mobile
             else {
                 setShowSearchMobileOverlay(true)
+                
             }
         }
         // se a tela for grande, ao clicar no botão já executa a busca do input
@@ -85,6 +95,8 @@ function Header() {
             evalQuery(currentFilter.title)
             setInputs(prev => { return {...prev, desktopInput: ''}})
         }
+        // de qualquer maneira, dê foco no botão
+        //console.log(event.currentTarget.previousElementSibling)
     }
 
     function onInputChange(event) {
@@ -121,8 +133,8 @@ function Header() {
                 </Link>
                 {showSearchMobileOverlay && (
                     <div className={styles.searchMobileOverlay}>
-                        <input onChange={onInputChange} value={inputs.mobileInput} id='mobileInput' type="text" placeholder='Pesquisar na CineVortex' />
-                        <button onClick={searchQuery}><svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></button>
+                        <input ref={ref_mobileInput} onChange={onInputChange} value={inputs.mobileInput} id='mobileInput' type="text" placeholder='Pesquisar na CineVortex' />
+                        <button onClick={e => searchQuery(e)}><svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></button>
                     </div>
                 )}                   
             </nav>

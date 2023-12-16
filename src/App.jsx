@@ -23,7 +23,7 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/favoritos" element={<Favorites />} />
             <Route path="/:movie_id" element={<ContentDetails />} />
-            <Route path="/erro404" element={<Erro404 />}/>
+            <Route path="/*" element={<Erro404 />}/>
           </Routes>
         </FavoritesProvider>
         <Footer />
