@@ -9,7 +9,6 @@ import { filteredContent } from '../../data'
 import { useFavorites } from "../../FavoritesContext"
 
 import Poster from '../../components/Poster'
-import MyLoader from '../../components/MyLoader'
 
 function SearchResults() {
 
@@ -50,7 +49,6 @@ function SearchResults() {
                 const movieFilter = filteredContent.find(item => item.content_type === 'movie')
                 const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', query), movieFilter.reqOptions)
                 const movieQueryJSON = await movieQuery.json()
-                console.log(movieQueryJSON)
                 setContents({movies: movieQueryJSON})
                
             }

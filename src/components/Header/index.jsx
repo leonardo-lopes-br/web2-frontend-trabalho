@@ -48,7 +48,6 @@ function Header() {
     async function evalQuery (filter='') {
         // Usuário tentou buscar por nada
         if ((filter === '' && inputs.mobileInput.trim() === '') || (filter !== '' && inputs.desktopInput.trim() === '')) {
-            console.log('pesquisou por nada')
             return
         }
    
