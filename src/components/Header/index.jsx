@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SearchContainer from '../SearchContainer';
 
@@ -22,18 +22,21 @@ function Header() {
         },
         {
             id: 3,
-            title: "Episódios de séries",
+            title: "Séries",
             icon: <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h5c1.1 0 1.99-.9 1.99-2L23 5a2 2 0 0 0-2-2zm-1 14H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1z"></path></svg>
         },
     ]
 
     const [currentFilter, setCurrentFilter] = useState(filterItems[0])
     const [showSearchMobileOverlay, setShowSearchMobileOverlay] = useState(false);
-    const ref_mobileInput = useRef()
     const [inputs, setInputs] = useState({
         mobileInput: '',
         desktopInput: ''
     })
+    
+    const ref_mobileInput = useRef()
+
+    const navigate = useNavigate()
 
 
     // Ao exibir o input de pesquisa no mobile, focar no campo
@@ -43,49 +46,38 @@ function Header() {
             ref_mobileInput.current.focus()
     }, [showSearchMobileOverlay])
 
+    // o filtro vazio indica mobile
     async function evalQuery (filter='') {
         // Usuário tentou buscar por nada
         if ((filter === '' && inputs.mobileInput.trim() === '') || (filter !== '' && inputs.desktopInput.trim() === '')) {
             console.log('pesquisou por nada')
             return
         }
-
+   
         // pesquisa por tudo
         if (filter === '' || filter === filterItems[0].title) {
-            const movieFilter = filteredContent.find(item => item.content_type === 'movie')
-            const tvFilter = filteredContent.find(item => item.content_type === 'tv')
-
             const my_input = filter === '' ? inputs.mobileInput : inputs.desktopInput
-
-            const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', my_input), movieFilter.reqOptions)
-            const movieQueryJSON = await movieQuery.json()
-            console.log("Query de filmes no mobile: ")
-            console.log(movieQueryJSON)
-
-            const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', my_input), tvFilter.reqOptions)
-            const tvQueryJSON = await tvQuery.json()
-            console.log("Query de tv series no mobile: ")
-            console.log(tvQueryJSON)
+            navigate(`/pesquisar/${my_input}`, {
+                state: {
+                    results: {
+                        filter: filter,
+                        filterTitles: filterItems.map(f => f.title),
+                    }
+                }
+            })
         }
+        
 
         // pesquisa no desktop com filtro diferente de 'Tudo'
         else {
-            // títulos -> somente filmes
-            if (filter === filterItems[1].title) {
-                const movieFilter = filteredContent.find(item => item.content_type === 'movie')
-                const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', inputs.desktopInput), movieFilter.reqOptions)
-                const movieQueryJSON = await movieQuery.json()
-                console.log("Query de filmes no desktop: ")
-                console.log(movieQueryJSON)
-            }
-            // Episódios de séries
-            else if (filter === filterItems[2].title) {
-                const tvFilter = filteredContent.find(item => item.content_type === 'tv')
-                const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', inputs.desktopInput), tvFilter.reqOptions)
-                const tvQueryJSON = await tvQuery.json()
-                console.log("Query de tv series no desktop: ")
-                console.log(tvQueryJSON)
-            }
+            navigate(`/pesquisar/${inputs.desktopInput}`, {
+                state: {
+                    results: {
+                        filter: filter,
+                        filterTitles: filterItems.map(f => f.title),
+                    }
+                }
+            })
         }
 
     }

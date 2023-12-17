@@ -5,11 +5,11 @@ import MyLoader from '../../components/MyLoader'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { uniqueContentQuery } from '../../data'
+import { uniqueContentQuerys } from '../../data'
 
 import { useFavorites } from '../../FavoritesContext'
 
-function ContentDetails() {
+function ContentDetails({ type }) {
 
     const [contentDetails, setContentDetails] = useState({})
     const [timeContent, setTimeContent] = useState({})
@@ -30,7 +30,12 @@ function ContentDetails() {
             
         if (contentDetails.videos && contentDetails.videos.results) {
             const videosList = contentDetails.videos.results
-            const trailerObject = videosList.find(video => video.type.toLowerCase() === 'trailer')
+            let trailerObject = videosList.find(video => video.type.toLowerCase() === 'trailer')
+            // se não tiver trailer, pega qualquer video que seja o primeiro
+            if (!trailerObject) {
+                trailerObject = videosList[0]
+            }
+            console.log(trailerObject)
             if (trailerObject) {
                 const trailerHost = trailerObject.site.toLowerCase()
                 const trailerKey = trailerObject.key
@@ -44,13 +49,14 @@ function ContentDetails() {
     }, [contentDetails, favorites])
 
     async function fetchContentDetails() {
-        const contentId = Number(contentObject.movie_id)
+        const contentId = Number(`${type === 'movie' ? contentObject.movie_id : contentObject.series_id}`)
         if (isNaN(contentId)) {
             navigate('/')
         }
         else {
-            const queryUrl = uniqueContentQuery.baseUrl.replace('<content_id>', contentId)
-            const queryOptions = uniqueContentQuery.reqOptions
+            const my_query = uniqueContentQuerys.find(query => query.type === type)
+            const queryUrl = my_query.baseUrl.replace('<content_id>', String(contentId))
+            const queryOptions = my_query.reqOptions
             try {
                 const my_content = await fetch(queryUrl, queryOptions);
         
@@ -60,13 +66,19 @@ function ContentDetails() {
                 }
         
                 const resultQuery = await my_content.json();
-
-                const hours = Math.floor(resultQuery.runtime / 60)
-                const minutes = resultQuery.runtime - hours * 60
-                setTimeContent({hours: hours, minutes: minutes})
-
                 
-
+                // series não tem runtime
+                if (type === 'movie') {
+                    const hours = Math.floor(resultQuery.runtime / 60)
+                    const minutes = resultQuery.runtime - hours * 60
+                    setTimeContent({hours: hours, minutes: minutes})
+                }
+                else if (type === 'series') {
+                    const hours = Math.floor(resultQuery.episode_run_time[0] / 60)
+                    const minutes = resultQuery.episode_run_time[0] - hours * 60
+                    setTimeContent({hours: hours, minutes: minutes})
+                }
+                
                 setContentDetails(resultQuery);
                 setContentLoaded(true)
 
@@ -99,16 +111,19 @@ function ContentDetails() {
                 <main className={styles.main_container} >
                     {/*Container para o background da imagem */}
                     <div className={styles.backgroundImageContainer}>
-                        <div className={styles.imgContainer} style={{backgroundImage: `url('https://image.tmdb.org/t/p/original${contentDetails.poster_path}')`}}></div>
+                        {
+                            contentDetails.poster_path &&
+                            <div className={styles.imgContainer} style={{backgroundImage: `url('https://image.tmdb.org/t/p/original${contentDetails.poster_path}')`}}></div>
+                        }
                         <div className={styles.blur}></div>
                     </div>
-                    <h1>{contentDetails.title}</h1>
+                    <h1>{`${type === 'movie' ? contentDetails.title : contentDetails.name}`}</h1>
                     
                     <div className={styles.initialInfoContainer}> {/**infos iniciais */}
                         <div className={styles.firstInfoContainer}>
-                            <h2><span>Título original:</span> {contentDetails.original_title}</h2>
+                            <h2><span>Título original:</span> {`${type === 'movie' ? contentDetails.original_title : contentDetails.original_name}`}</h2>
                             <div className={styles.dateTimeContainer}>
-                                <span className={styles.date}>{new Date(contentDetails.release_date).getFullYear()}</span>
+                                <span className={styles.date}>{new Date(type === 'movie' ? contentDetails.release_date : contentDetails.first_air_date).getFullYear()}</span>
                                 <span className={styles.time}>{timeContent.hours > 0
                                         ? `${String(timeContent.hours)} h ${String(timeContent.minutes).padStart(2, '0')} min`
                                         : `${String(timeContent.minutes).padStart(2, '0')} min`}
@@ -139,13 +154,16 @@ function ContentDetails() {
                     </div>
                     <div className={styles.container}>
                         <div className={`${styles.imageVideoContainer} ${trailerLink ? '' : styles.imageWithoutVideo}`}>
-                            <img src={`https://image.tmdb.org/t/p/w500${contentDetails.poster_path}`} alt={`Poster de ${contentDetails.title}`} />
+                            {
+                                contentDetails.poster_path &&
+                                <img src={`https://image.tmdb.org/t/p/w500${contentDetails.poster_path}`} alt={`Poster de ${type === 'movie' ? contentDetails.title : contentDetails.name}`} />
+                            }
                             {trailerLink && (
                                 <div className={styles.iframeContainer}>
                                     <iframe
                                         src={trailerLink}
                                         allowFullScreen
-                                        title={`Trailer de ${contentDetails.title}`}
+                                        title={`Trailer de ${type === 'movie' ? contentDetails.title : contentDetails.name}`}
                                     ></iframe>
                                 </div>
                                 

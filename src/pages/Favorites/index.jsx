@@ -13,7 +13,15 @@ function Favorites() {
             <h1>Favoritos</h1>
             {favorites && favorites.length > 0 &&
                 <ul className={styles.contentList}>
-                    {favorites.map(favorito => <li key={favorito.id}> <Poster content={favorito} fav /> </li>)}
+                    {favorites.map(favorito => 
+                        <li key={favorito.id}>
+                            <Poster
+                                content={favorito}
+                                type={`${favorito.title ? 'movie' : 'series'}`}
+                                fav
+                            />
+                        </li>
+                    )}
                 </ul>
             }
             

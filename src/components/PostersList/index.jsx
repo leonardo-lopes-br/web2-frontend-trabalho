@@ -5,7 +5,7 @@ import { useEffect, useState, useRef} from "react"
 import { useFavorites } from "../../FavoritesContext"
 import MyLoader from "../MyLoader"
 
-function PostersList({ info }) {
+function PostersList({ info, type='movie' }) {
 
     // Armazenar os dados
     const [postersContent, setpostersContent] = useState({})
@@ -121,7 +121,7 @@ function PostersList({ info }) {
                     if (favorites)
                       fav = favorites.some(item => item.id === content.id)
                     return <li key={content.id}>
-                              <Poster content={content} fav={fav}/>
+                              <Poster content={content} fav={fav} type={type}/>
                           </li>
                   })}
                   {!postersContent.results && <MyLoader />}

@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import ContentDetails from './pages/ContentDetails';
 import Erro404 from './pages/Erro404';
-// import SearchResults from './pages/SearchResults';
+import SearchResults from './pages/SearchResults';
 
 
 function App() {
@@ -24,8 +24,9 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/favoritos" element={<Favorites />} />
-            <Route path="/filmes/:movie_id" element={<ContentDetails />} />
-            { /* <Route path="/pesquisar/consulta=:query" element={<SearchResults />} />  */}
+            <Route path="/filmes/:movie_id" element={<ContentDetails type='movie'/>} />
+            <Route path="/series/:series_id" element={<ContentDetails type='series'/>} />
+            <Route path="/pesquisar/:query" element={<SearchResults />} />
             <Route path="/*" element={<Erro404 />}/>
           </Routes>
         </FavoritesProvider>
