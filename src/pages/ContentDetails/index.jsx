@@ -13,6 +13,7 @@ function ContentDetails({ type }) {
 
     const [contentDetails, setContentDetails] = useState({})
     const [timeContent, setTimeContent] = useState({})
+    const [dateContent, setDateContent] = useState('')
     const [contentLoaded, setContentLoaded] = useState(false)
     const [trailerLink, setTrailerLink] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
@@ -35,7 +36,7 @@ function ContentDetails({ type }) {
             if (!trailerObject) {
                 trailerObject = videosList[0]
             }
-            console.log(trailerObject)
+            
             if (trailerObject) {
                 const trailerHost = trailerObject.site.toLowerCase()
                 const trailerKey = trailerObject.key
@@ -67,17 +68,30 @@ function ContentDetails({ type }) {
         
                 const resultQuery = await my_content.json();
                 
-                // series não tem runtime
-                if (type === 'movie') {
+                
+                if (type === 'movie' && resultQuery.runtime) {
                     const hours = Math.floor(resultQuery.runtime / 60)
                     const minutes = resultQuery.runtime - hours * 60
                     setTimeContent({hours: hours, minutes: minutes})
+
+                    const data = resultQuery.release_date ? String(new Date(resultQuery.release_date).getFullYear()) : ''
+                    if (data) {
+                        setDateContent(data)
+                    }
                 }
-                else if (type === 'series') {
+                else if (type === 'series' && resultQuery.episode_run_time && resultQuery.episode_run_time.length > 0) {
                     const hours = Math.floor(resultQuery.episode_run_time[0] / 60)
                     const minutes = resultQuery.episode_run_time[0] - hours * 60
                     setTimeContent({hours: hours, minutes: minutes})
+
+                    const data = resultQuery.first_air_date ? String(new Date(resultQuery.first_air_date).getFullYear()) : ''
+                    if (data) {
+                        setDateContent(data)
+                    }
                 }
+
+
+
                 
                 setContentDetails(resultQuery);
                 setContentLoaded(true)
@@ -123,11 +137,18 @@ function ContentDetails({ type }) {
                         <div className={styles.firstInfoContainer}>
                             <h2><span>Título original:</span> {`${type === 'movie' ? contentDetails.original_title : contentDetails.original_name}`}</h2>
                             <div className={styles.dateTimeContainer}>
-                                <span className={styles.date}>{new Date(type === 'movie' ? contentDetails.release_date : contentDetails.first_air_date).getFullYear()}</span>
-                                <span className={styles.time}>{timeContent.hours > 0
+                                {
+                                    dateContent &&
+                                    <span className={styles.date}>{dateContent}</span>
+                                }
+                                {
+                                    timeContent && (timeContent.hours || timeContent.minutes) &&
+                                    <span className={styles.time}>{timeContent.hours > 0
                                         ? `${String(timeContent.hours)} h ${String(timeContent.minutes).padStart(2, '0')} min`
                                         : `${String(timeContent.minutes).padStart(2, '0')} min`}
-                                </span>
+                                    </span>
+                                }
+                                
                             </div>
                         </div>
                         <div className={styles.secondInfoContainer}>
