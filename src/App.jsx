@@ -32,6 +32,7 @@ function App() {
         </FavoritesProvider>
         <Footer />
 
+        <ScrollToTop /> {/*Só pra voltar para o começo da página quando eu trocar de rota*/}
       </Router>
     </>
   )
