@@ -14,7 +14,10 @@ import MyLoader from '../../components/MyLoader'
 function SearchResults() {
 
 
-    const [contents, setContents] = useState({})
+    const [contents, setContents] = useState({
+        movies: '',
+        tvSeries: '',
+    })
 
     const { favorites } = useFavorites()
 
@@ -79,43 +82,45 @@ function SearchResults() {
     return (
         <main className={styles.main_container}>
             <h1>Pesquisa "{query}"</h1>
-            {/*Exibe os filmes quando convém */}
-            <section className={styles.section}>
-                <h2>Filmes</h2>
-                <ul className={styles.contentList}>
-                    {contents.movies && contents.movies.results &&
-                    
-                        contents.movies.results.map(item => {
-                            let fav = false
-                            if (favorites)
-                            fav = favorites.some(fav_item => fav_item.id === item.id)
-                            return <li key={item.id}>
-                                    <Poster content={item} fav={fav}/>
-                                </li>
-                        })
-                    }
-                    {!contents.tvSeries && <MyLoader />}
-                </ul>
-            </section>
-                
-            {/*Exibe as séries quando convém */}
-            <section className={styles.section}>
-                <h2>Séries</h2>
-                <ul className={styles.contentList}>
-                    {contents.tvSeries && contents.tvSeries.results &&  
-                    
-                        contents.tvSeries.results.map(item => {
-                            let fav = false
-                            if (favorites)
-                            fav = favorites.some(fav_item => fav_item.id === item.id)
-                            return <li key={item.id}>
-                                    <Poster content={item} fav={fav} type='series'/>
-                                </li>
-                        })
-                    }
-                    {!contents.tvSeries && <MyLoader />}
-                </ul>
-            </section>
+                {/*Exibe os filmes quando convém */}
+                {contents.movies.results &&
+                    <section className={styles.section}>
+                        <h2>Filmes</h2>
+                        <ul className={styles.contentList}>
+                            {
+                                contents.movies.results.map(item => {
+                                    let fav = false
+                                    if (favorites)
+                                    fav = favorites.some(fav_item => fav_item.id === item.id)
+                                    return <li key={item.id}>
+                                            <Poster content={item} fav={fav}/>
+                                        </li>
+                                })
+                            }
+                        </ul>
+                    </section>
+                }
+                {!contents.movies.results && <MyLoader />}
+                {/*Exibe as séries quando convém */}
+                {contents.tvSeries && contents.tvSeries.results &&
+                    <section className={styles.section}>
+                        <h2>Séries</h2>
+                        <ul className={styles.contentList}>
+                            {
+                                contents.tvSeries.results.map(item => {
+                                    let fav = false
+                                    if (favorites)
+                                    fav = favorites.some(fav_item => fav_item.id === item.id)
+                                    return <li key={item.id}>
+                                            <Poster content={item} fav={fav} type='series'/>
+                                        </li>
+                                })
+                            }
+                        </ul>
+                    </section>
+                }
+                {!contents.tvSeries.results && <MyLoader />}
+            
         </main>
     )
 }
