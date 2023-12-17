@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import SearchContainer from '../SearchContainer';
 
-import { filteredContent } from '../../data';
-
 import styles from './Header.module.css'
 
 function Header() {
