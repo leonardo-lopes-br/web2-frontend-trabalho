@@ -84,7 +84,7 @@ function SearchResults() {
         <main className={styles.main_container}>
             <h1>Pesquisa "{query}"</h1>
                 {/*Exibe os filmes quando convém */}
-                {contents.movies.results && contents.movies.results.length > 0 &&
+                {contents.movies && contents.movies.results && contents.movies.results.length > 0 &&
                     <section className={styles.section}>
                         <h2>Filmes</h2>
                         <ul className={styles.contentList}>
@@ -102,7 +102,7 @@ function SearchResults() {
                     </section>
                 }
                 {/*Exibe as séries quando convém */}
-                {contents.tvSeries.results && contents.tvSeries.results.length > 0 &&
+                {contents.tvSeries && contents.tvSeries.results && contents.tvSeries.results.length > 0 &&
                     <section className={styles.section}>
                         <h2>Séries</h2>
                         <ul className={styles.contentList}>
