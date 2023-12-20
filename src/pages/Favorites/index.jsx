@@ -2,27 +2,61 @@ import styles from "./Favorites.module.css"
 import { useFavorites } from "../../FavoritesContext"
 import Poster from "../../components/Poster"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 
 function Favorites() {
 
     const { favorites } = useFavorites()
+    const [favoriteMovies, setFavoriteMovies] = useState([])
+    const [favoriteSeries, setFavoriteSeries] = useState([])
+
+    useEffect(() => {
+        const movies = favorites.filter(fav => fav.title)
+        const series = favorites.filter(fav => fav.name)
+        setFavoriteMovies(movies)
+        setFavoriteSeries(series)
+    }, [favorites])
 
     return (
         <main className={styles.main_container}>
             <h1>Favoritos</h1>
             {favorites && favorites.length > 0 &&
-                <ul className={styles.contentList}>
-                    {favorites.map(favorito => 
-                        <li key={favorito.id}>
-                            <Poster
-                                content={favorito}
-                                type={`${favorito.title ? 'movie' : 'series'}`}
-                                fav
-                            />
-                        </li>
-                    )}
-                </ul>
+                <>
+                    {favoriteMovies && favoriteMovies.length > 0 &&
+                        <section className={styles.section}>
+                            <h2>Filmes</h2>
+                            <ul className={styles.contentList}>
+                                {favoriteMovies.map(favMovie => 
+                                    <li key={favMovie.id}>
+                                        <Poster
+                                            content={favMovie}
+                                            type='movie'
+                                            fav
+                                        />
+                                    </li>
+                                )}
+                            </ul>
+                        </section>
+                    }
+                    {favoriteSeries && favoriteSeries.length > 0 &&
+                        <section className={styles.section}>
+                            <h2>Séries</h2>
+                            <ul className={styles.contentList}>
+                                {favoriteSeries.map(favSeries => 
+                                    <li key={favSeries.id}>
+                                        <Poster
+                                            content={favSeries}
+                                            type='series'
+                                            fav
+                                        />
+                                    </li>
+                                )}
+                            </ul>
+                        </section>
+                    }
+                    
+                </>
             }
             
             {(!favorites || favorites.length === 0) &&
