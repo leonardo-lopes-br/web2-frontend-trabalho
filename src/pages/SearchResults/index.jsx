@@ -14,8 +14,8 @@ function SearchResults() {
 
 
     const [contents, setContents] = useState({
-        movies: '',
-        tvSeries: '',
+        movies: {},
+        series: {},
     })
 
     const { favorites } = useFavorites()
@@ -38,7 +38,7 @@ function SearchResults() {
             const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', query), tvFilter.reqOptions)
             const tvQueryJSON = await tvQuery.json()
             
-            setContents({movies: movieQueryJSON, tvSeries: tvQueryJSON})
+            setContents({movies: movieQueryJSON, series: tvQueryJSON})
 
             
         }
@@ -58,7 +58,7 @@ function SearchResults() {
                 const tvFilter = filteredContent.find(item => item.content_type === 'tv')
                 const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', query), tvFilter.reqOptions)
                 const tvQueryJSON = await tvQuery.json()
-                setContents({tvSeries: tvQueryJSON})
+                setContents({series: tvQueryJSON})
             }
         }
         
@@ -100,12 +100,12 @@ function SearchResults() {
                     </section>
                 }
                 {/*Exibe as séries quando convém */}
-                {contents.tvSeries && contents.tvSeries.results && contents.tvSeries.results.length > 0 &&
+                {contents.series && contents.series.results && contents.series.results.length > 0 &&
                     <section className={styles.section}>
                         <h2>Séries</h2>
                         <ul className={styles.contentList}>
                             {
-                                contents.tvSeries.results.map(item => {
+                                contents.series.results.map(item => {
                                     let fav = false
                                     if (favorites)
                                     fav = favorites.some(fav_item => fav_item.id === item.id)
