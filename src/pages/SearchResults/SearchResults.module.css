@@ -16,6 +16,8 @@
 section {
     padding: 1rem 0px;
     margin: 1rem 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .section h2 {
@@ -41,6 +43,23 @@ section {
     gap: 0.3rem;
     background-color: var(--dark-gray-2);
     
+}
+
+.buttonSeeMore {
+    color: var(--light-blue);
+    font-weight: bold;
+    background-color: var(--medium-gray);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    margin: 1.5rem 0px;
+    width: 40%;
+    align-self: center;
+}
+
+.buttonSeeMore:hover {
+    background-color: var(--light-gray);
 }
 
 

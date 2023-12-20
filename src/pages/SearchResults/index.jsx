@@ -8,6 +8,8 @@ import { filteredContent } from '../../data'
 
 import { useFavorites } from "../../FavoritesContext"
 
+import { v4 as uuid } from 'uuid';
+
 import Poster from '../../components/Poster'
 
 function SearchResults() {
@@ -17,6 +19,11 @@ function SearchResults() {
         movies: {},
         series: {},
     })
+    const [pages, setPages] = useState({
+        page_movies: 0,
+        page_series: 0,
+    })
+
 
     const { favorites } = useFavorites()
 
@@ -39,6 +46,7 @@ function SearchResults() {
             const tvQueryJSON = await tvQuery.json()
             
             setContents({movies: movieQueryJSON, series: tvQueryJSON})
+            setPages({page_movies: 1, page_series: 1})
 
             
         }
@@ -50,6 +58,7 @@ function SearchResults() {
                 const movieQuery = await fetch(movieFilter.baseUrl.replace('<query>', query), movieFilter.reqOptions)
                 const movieQueryJSON = await movieQuery.json()
                 setContents({movies: movieQueryJSON})
+                setPages({page_movies: 1, page_series: 0})
                
             }
 
@@ -59,6 +68,7 @@ function SearchResults() {
                 const tvQuery = await fetch(tvFilter.baseUrl.replace('<query>', query), tvFilter.reqOptions)
                 const tvQueryJSON = await tvQuery.json()
                 setContents({series: tvQueryJSON})
+                setPages({page_movies: 0, page_series: 1})
             }
         }
         
@@ -76,6 +86,60 @@ function SearchResults() {
         }
         
     }, [state])
+    
+
+    async function seeMoreMovies() {
+        const movieFilter = filteredContent.find(item => item.content_type === 'movie')
+        const url = movieFilter.baseUrl.replace('<query>', query) + `&page=${pages.page_movies}`
+        const newMovieQuery = await fetch(url, movieFilter.reqOptions)
+        const newMovieQueryJSON = await newMovieQuery.json()
+        
+        setContents(prev => {
+            return {
+                ...prev,
+                movies: {
+                    ...prev.movies,
+                    results: [...prev.movies.results, ...newMovieQueryJSON.results]
+                },
+            }
+        })
+    }
+
+    async function seeMoreSeries() {
+        const tvFilter = filteredContent.find(item => item.content_type === 'tv')
+        const url = tvFilter.baseUrl.replace('<query>', query) + `&page=${pages.page_series}`
+        const newTvQuery = await fetch(url, tvFilter.reqOptions)
+        const newTvQueryJSON = await newTvQuery.json()
+        
+        setContents(prev => {
+            return {
+                ...prev,
+                series: {
+                    ...prev.series,
+                    results: [...prev.series.results, ...newTvQueryJSON.results]
+                },
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (pages.page_movies > 1) {
+            seeMoreMovies()
+        }
+
+        if (pages.page_series > 1) {
+            seeMoreSeries()
+        }
+    }, [pages])
+
+    function handleSeeMoreContent(type='movies') {
+        setPages((prev) => {
+            return {
+              ...prev,
+              [type === 'movies' ? 'page_movies' : 'page_series']: prev[type === 'movies' ? 'page_movies' : 'page_series'] + 1,
+            };
+          });
+    }
    
 
     return (
@@ -90,13 +154,20 @@ function SearchResults() {
                                 contents.movies.results.map(item => {
                                     let fav = false
                                     if (favorites)
-                                    fav = favorites.some(fav_item => fav_item.id === item.id)
-                                    return <li key={item.id}>
+                                        fav = favorites.some(fav_item => fav_item.id === item.id)
+                                    return <li key={item.id + uuid()}>
                                             <Poster content={item} fav={fav}/>
                                         </li>
                                 })
                             }
                         </ul>
+                        {
+                            contents.movies && pages.page_movies !== contents.movies.total_pages && 
+                                <button onClick={() => handleSeeMoreContent('movies')} className={styles.buttonSeeMore} type='button'>
+                                    Exibir mais
+                                </button>
+                        }
+                        
                     </section>
                 }
                 {/*Exibe as séries quando convém */}
@@ -108,13 +179,19 @@ function SearchResults() {
                                 contents.series.results.map(item => {
                                     let fav = false
                                     if (favorites)
-                                    fav = favorites.some(fav_item => fav_item.id === item.id)
-                                    return <li key={item.id}>
+                                        fav = favorites.some(fav_item => fav_item.id === item.id)
+                                    return <li key={item.id + uuid()}>
                                             <Poster content={item} fav={fav} type='series'/>
                                         </li>
                                 })
                             }
                         </ul>
+                        {
+                            contents.movies && pages.page_series !== contents.series.total_pages && 
+                                <button onClick={() => handleSeeMoreContent('series')} className={styles.buttonSeeMore} type='button'>
+                                    Exibir mais
+                                </button>
+                        }
                     </section>
                 }
             
